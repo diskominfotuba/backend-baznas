@@ -43,7 +43,7 @@ return [
 
         'api' => [
             'driver' => 'passport',
-            'provider' => 'donaturs',
+            'provider' => 'muzakkis',
             'hash' => false,
         ],
     ],
@@ -71,7 +71,7 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        'donaturs' => [
+        'muzakkis' => [
             'driver' => 'eloquent',
             'model' => App\Models\Donatur::class,
         ],
