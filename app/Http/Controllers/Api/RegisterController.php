@@ -21,7 +21,7 @@ class RegisterController extends Controller
         //set validasi
         $validator = Validator::make($request->all(), [
             'name'      => 'required',
-            'email'     => 'required|email|unique:donaturs',
+            'email'     => 'required|email|unique:muzakkis',
             'password'  => 'required|min:8|confirmed'
         ]);
 
@@ -29,26 +29,19 @@ class RegisterController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $passwordInfo = password_get_info($request->password);
-        if ($passwordInfo['algo'] === 0) {
-            $password = Hash::make($request->password);
-        } else { 
-            $password = $request->password;
-        }
-
-        //create donatur
-        $muzakki = Muzakki::create([
+        //create muzakki
+        $donatur = Muzakki::create([
             'name'      => $request->name,
             'email'     => $request->email,
-            'password'  => $password,
+            'password'  => Hash::make($request->password)
         ]);
         
         //return JSON
         return response()->json([
             'success' => true,
             'message' => 'Register Berhasil!',
-            'data'    => $muzakki,
-            'token'   => $muzakki->createToken('authToken')->accessToken  
+            'data'    => $donatur,
+            'token'   => $donatur->createToken('authToken')->accessToken  
         ], 201);
     }
 }
